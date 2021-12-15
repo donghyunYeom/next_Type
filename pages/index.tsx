@@ -4,10 +4,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import {useState, useEffect} from 'react';
 
+
 //const Home: NextPage = () => {
 const Homema = (props: any) => {
 
   const [homema,setHome] = useState(props.detail);
+  //const [showModal, setShowModal] = useState(false);
 
   return (
    
@@ -43,18 +45,30 @@ const Homema = (props: any) => {
             </div>
         </div>
 
-        <div className="w-screen flex justify-center">
+        <div className="w-screen flex justify-center justify-items-center text-center">
           {homema.map((homema : any) => (
-          <div className="" key={homema.idx}>
-            <div className="item m-12">{homema.name}</div>
-            <div className="item m-12"></div>
-            <div className="item m-12"></div>
+          <div className="m-24" key={homema.idx}>
+            <div className="item">
+              <img className="w-48 rounded-full" src={homema.imagePath} alt="test" />
+            </div>
+            <div className="item">
+              {homema.name} • {homema.nameKo}
+            </div>
+            <div className="item">
+              {homema.description}
+            </div>
+            <div className="inline-block">
+            {/* <button onClick={() => setShowModal(true)}>초대하기</button> */}
+              
+            </div>
+            <div className="inline-block"><a href={homema.discord}>입장하기</a></div>
           </div>
           ))}
         </div>
     </div>
   )
 }
+
 
 export async function getServerSideProps(context:any) {
    
