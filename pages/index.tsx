@@ -3,6 +3,7 @@ import { ssApi } from './api/index'
 import Head from 'next/head'
 import Image from 'next/image'
 import {useState, useEffect} from 'react';
+//import Modal from './api/component/modal';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -14,9 +15,10 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     background: 'rgba(255, 255, 255)',
-    width: '300px',
-    height: '300px',
+    width: '400px',
+    height: '530px',
     color: 'black',
+    //align: 'center',
   },
   overlay: {
     position: 'fixed',
@@ -33,14 +35,27 @@ const customStyles = {
 const Homema = (props: any) => {
 
   const [homema,setHome] = useState(props.detail);
-  const [showModal, setShowModal] = useState(false);
+  const [modal, setModal] = useState(false)
+  const [current, setCurrent] = useState(props.detail)
 
-  const modalInfo = (idx:any) => {
+  // const onView= (idx:any)=>{
+  //   //setCurrent(data.find(item => item.rank === rank))
+  //   console.log(props.detail[idx-1]);
+  //   setCurrent(props.detail[idx-1])
+  //   setModal(true)
 
-    setShowModal(true);
+  // }
+
+  const modalOpen= (idx:any)=>{
+    setModal(true)
+    setCurrent(props.detail[idx-1]);
+    document.body.style.overflow = "hidden";
   }
 
-  
+const modalClose= ()=>{
+  setModal(false)
+  document.body.style.overflow = "unset";
+} 
 
   return (
    
@@ -56,7 +71,7 @@ const Homema = (props: any) => {
         </div>
       </header>
 
-        <div className="w-screen text-center mt-8 mb-24">
+        <div className="w-screen text-center mt-8 mb-10">
             <div className="inline">
             <div className="inline-block w-0 h-full"></div>
             <div className="inline align-middle">
@@ -76,51 +91,100 @@ const Homema = (props: any) => {
             </div>
         </div>
 
-        <div className="w-screen flex justify-center justify-items-center text-center">
+        <div className="w-screen flex justify-around text-center mt-20">
           {homema.map((homema : any) => (
-          <div className="m-24" key={homema.idx}>
-            <div className="item">
-              <img className="w-48 rounded-full" src={homema.imagePath} alt="test" />
+          <div className="w-96 text-center relative" key={homema.idx}>
+            <div className="-mb-16">
+              <img className="w-48 m-auto rounded-full image" src={homema.imagePath} alt="test" />
             </div>
-            <div className="item">
-              {homema.name} • {homema.nameKo}
-            </div>
-            <div className="item">
-              {homema.description}
-            </div>
-            <div className="inline-block">
-              <button data-msg={homema.idx} onClick={() => modalInfo(homema.idx)}>초대하기</button>
-            </div>
-            <div className="inline-block"><a href={homema.discord}>입장하기</a></div>
-          </div>
-          ))}
+            <div className="item pt-10 flex w-96 h-56 bg-white text-black  w-full text-xl font-bold">
+              <div className="m-auto">
+                <div className="">
+                  {homema.name} • {homema.nameKo}
+                </div>
 
-          <Modal key={homema.idx} id={homema.idx}
-            isOpen={showModal} onRequestClose={() => setShowModal(false)} ariaHideApp={false} style={customStyles} >
-              <div className="text-center">
                 <div className="item">
-                <div className="item">
-                    <img className="w-48 rounded-full" src={homema.imagePath} alt="test" />
-                  </div>
-                  <div className="item">
-                    {homema.name} • {homema.nameKo}
-                  </div>
-                  <div className="item">
-                    {homema.description}
-                  </div>
+                {homema.description}
+                </div>
+                <div className="inline-block mt-4">
+                  {/* <div onClick={()=> onView(homema.idx) } >초대하기</div> */}
+                  <div className="inline-block mr-10 bg-black text-white pt-4 pr-6 pb-4 pl-6" onClick={()=> modalOpen(homema.idx) } >초대하기</div>
+                  <div className="inline-block bg-black text-white pt-4 pr-6 pb-4 pl-6"><a href={homema.discord}>입장하기</a></div>
                 </div>
               </div>
               
-              <button onClick={() => setShowModal(false)}>close</button>
-          </Modal>
-          
+            </div>
+          </div>
+          ))}
 
-            
+          {/* <style jsx>{`
+            .image {
+              display: block;
+              margin: 0px auto;
+            }
+            .name_text{
+              display:block;
+              margin-top: -90px;
+              width: 100%;
+              height: 300px;
+              padding-top:100px;
+            }
+          `}</style> */}
+
         </div>
+
+        {/* <Modal current={current} onClose={onClose}/> */}
+        <Modal isOpen={modal} onRequestClose={() => modalClose()} ariaHideApp={false} style={customStyles} current={current}>
+          
+            <button onClick={() => modalClose()} className="float-right">X</button>
+            <div className="text-center">
+              <div className="img_tag">
+                <img className="w-48 rounded-full" src={current.imagePath} alt="test" />
+              </div>
+              <div className="item mt-4 text-2xl font-bold">
+                {current.name} • {current.nameKo}
+              </div>
+              <div> {current['description']}</div>
+              <div className="item">
+                <input type="text" value={current.shortUrl} placeholder="shortUrl" className="border w-2/3 h-8 mt-4 text-center text-black "/>
+              </div>
+              <div className="mt-4 flex w-3/4 ml-10 ">
+                <div className="flex-1">
+                  <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+                 </div>
+                 <div className="flex-1">
+                  <img src="/twitter.png" className="twit ml-4 rounded-2xl"/>
+                 </div>
+                 <div className="flex-1">
+                  <img src="/copy.png" className="copy ml-4 "/>
+                 </div>                 
+              </div>
+              <div className="mt-4">
+                  <button className="px-16 py-3 text-2xl bg-black text-white">입장하기</button>
+              </div>
+
+              <style jsx>{`
+                  .img_tag {
+                    text-align: -webkit-center;
+                  }
+                  .border {
+                    border: 1px solid black;
+                  }
+                  .twit{
+                    width: 4.3rem;
+                  }
+                  .copy{
+                    width: 5rem;
+                    margin-top: -5px;
+                  }
+                  `}</style>
+            </div>
+        </Modal>
+
     </div>
   )
 }
-
+//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png
 //Modal.setAppElement('#root')
 
 
