@@ -10,7 +10,6 @@ class MyDocument extends Document {
       <Html>
         <Head>
             <script async src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-            <title>My page title</title>
         </Head>
         <body>
           <Main />

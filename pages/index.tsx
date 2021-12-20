@@ -11,13 +11,6 @@ const Homema = (props: any) => {
   const [homema,setHome] = useState(props.detail);
   const [modal, setModal] = useState(false)
   const [current, setCurrent] = useState(props.detail)
-  // const onView= (idx:any)=>{
-  //   //setCurrent(data.find(item => item.rank === rank))
-  //   console.log(props.detail[idx-1]);
-  //   setCurrent(props.detail[idx-1])
-  //   setModal(true)
-
-  // }
 
   const modalOpen= (idx:any)=>{
     setModal(true)
@@ -93,7 +86,7 @@ const handleKeyPress = (e : any) => {
 };
 
   return (
-   
+    
     <div className="hover:text-white ">
         {/* <div className="inline-block m-5">GUIDE</div>
         <div className="inline-block">|</div>
@@ -106,7 +99,7 @@ const handleKeyPress = (e : any) => {
             </div>
         </header>
 
-        <div className="w-screen text-center mt-8 lg:mb-10">
+        <div className="w-screen max-w-screen-2xl text-center mt-8 lg:mb-10 m-auto">
             <div className="inline">
             <div className="inline-block w-0 h-full"></div>
             <div className="inline align-middle">
@@ -122,7 +115,7 @@ const handleKeyPress = (e : any) => {
             </div>
         </div>
 
-        <div className="max-w-7xl m-auto flex justify-around text-center md:mt-20 -mt-4 lg:flex-row md:flex-row flex-col ">
+        <div className="max-w-7xl m-auto flex justify-around text-center md:mt-20 -mt-4 mb-16 xl:flex-row flex-col flex-wrap">
               {homema.map((homema : any) => (
               <div className="w-96 text-center relative m-auto mt-16" key={homema.idx}>
                 <div className="-mb-16">
