@@ -1,7 +1,5 @@
-//import type { NextPage } from 'next'
 import { ssApi } from './api/index'
 import {useState, useEffect} from 'react';
-//import Modal from './api/component/modal';
 import Modal from 'react-modal';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -13,8 +11,6 @@ const Homema = (props: any) => {
   const [homema,setHome] = useState(props.detail);
   const [modal, setModal] = useState(false)
   const [current, setCurrent] = useState(props.detail)
-  const [isCopied, setIsCopied] = useState(false);
-
   // const onView= (idx:any)=>{
   //   //setCurrent(data.find(item => item.rank === rank))
   //   console.log(props.detail[idx-1]);
@@ -41,10 +37,6 @@ const afrerSearch = async (keyword:any) => {
 }
 
 const onChange = (e: { target: { value: any; }; }) => {
-  // e.target에는 이벤트가 발생한 input DOM에 대한 정보를 가지고 있다.
-  //console.log(e.target);
-  // 이벤트가 발생한 DOM의 값 가져오기
-  //console.log(e.target.value);
   afrerSearch(e.target.value);
 }
 
@@ -52,7 +44,6 @@ const onChange = (e: { target: { value: any; }; }) => {
 
 useEffect(() => {
   Kakao.init(process.env.KAKAO_API_KEY);
-  //Kakao.init("c063be17296e1c7973d558319b0ebe5a");
 }, []);
 
 const shareKakao = (name:any, image:any, url:any) => {
@@ -87,15 +78,11 @@ function shareTwitter(name:any, image:any, url: any) {
 }
 
 const shortUrl = async () =>{
-  //(document.getElementById("search_keyword")).value = shortUrl;
-  //console.log(shortUrl)
-  setIsCopied(true);
-  setTimeout(() => {
-      setIsCopied(false);
-  }, 1000);
-  //if( setIsCopied ){
-      alert("클립보드에 복사되었습니다!! Ctrl+V 로 사용하세요");
-  //}
+    alert("클립보드에 복사되었습니다!! Ctrl+V 로 사용하세요");
+}
+
+const Search = () => {
+
 }
 
 const handleKeyPress = (e : any) => {
@@ -112,12 +99,12 @@ const handleKeyPress = (e : any) => {
         <div className="inline-block">|</div>
         <div className="inline-block m-5">EVENT</div> */}
         <header className="flex-1 flex-col sm:flex-row m-5 justify-between items-center mt-20 mb-15 text-center">
-        <div className="flex-1 cursor-pointer transform hover:scale-105">
-            {/* <LinkIcon className="flex-1 h-16 inline-block" /> */}
-            <p className="flex-1 lg:text-4xl text-2xl block">OUR FAN SITE CHANNEL</p>
-            <p className="flex-1 lg:text-11xl text-7xl md:font-extrabold inline-block lg:-mt-12" >Discord</p>
-        </div>
-      </header>
+            <div className="flex-1 cursor-pointer transform hover:scale-105">
+                {/* <LinkIcon className="flex-1 h-16 inline-block" /> */}
+                <p className="flex-1 lg:text-4xl text-2xl block">OUR FAN SITE CHANNEL</p>
+                <p className="flex-1 lg:text-11xl text-7xl md:font-extrabold inline-block lg:-mt-12" >Discord</p>
+            </div>
+        </header>
 
         <div className="w-screen text-center mt-8 lg:mb-10">
             <div className="inline">
@@ -128,37 +115,28 @@ const handleKeyPress = (e : any) => {
                 type="text"
                 placeholder="SEARCH"
                 className="w-1/2 md:h-16 h-10 text-center text-black"
-                //onKeyPress={onChange}
                 onChange={onChange}
             />
             </div>
-            {/* <style jsx>{`
-              .line {
-                line-height: 60px;
-              }
-            `}</style> */}
             <button type="button" className="inline-block bg-black text-white md:h-16 h-10 w-32 text-center align-middle line leading-6" onClick={()=> Search() } >ENTER</button>
             </div>
         </div>
 
-        <div className="w-screen flex justify-around text-center md:mt-20 -mt-4 lg:flex-row md:flex-row flex-col ">
+        <div className="max-w-7xl m-auto flex justify-around text-center md:mt-20 -mt-4 lg:flex-row md:flex-row flex-col ">
               {homema.map((homema : any) => (
-              // <div className="w-96 sm:w-48 lg:w-96 2xl:w-96 text-center relative " key={homema.idx}>
               <div className="w-96 text-center relative m-auto mt-16" key={homema.idx}>
                 <div className="-mb-16">
                   <img className="w-48 m-auto rounded-full image" src={homema.imagePath} alt="test" />
                 </div>
-                <div className="item pt-10 flex w-96 h-56 bg-white text-black  w-full text-xl font-bold">
+                <div className="item pt-10 flex w-96 h-56 bg-white text-black text-xl font-bold">
                   <div className="m-auto">
                     <div className="">
                       {homema.name} • {homema.nameKo}
                     </div>
-
                     <div className="item">
-                    {homema.description}
+                        {homema.description}
                     </div>
                     <div className="inline-block mt-4">
-                      {/* <div onClick={()=> onView(homema.idx) } >초대하기</div> */}
                       <div className="inline-block mr-10 bg-black text-white pt-4 pr-6 pb-4 pl-6" onClick={()=> modalOpen(homema.idx) } >초대하기</div>
                       <div className="inline-block bg-black text-white pt-4 pr-6 pb-4 pl-6"><a href={homema.discord}>입장하기</a></div>
                     </div>
@@ -167,27 +145,10 @@ const handleKeyPress = (e : any) => {
                 </div>
               </div>
               ))}
-
-          {/* <style jsx>{`
-            .image {
-              display: block;
-              margin: 0px auto;
-            }
-            .name_text{
-              display:block;
-              margin-top: -90px;
-              width: 100%;
-              height: 300px;
-              padding-top:100px;
-            }
-          `}</style> */}
-
+         
         </div>
 
-        {/* <Modal current={current} onClose={onClose}/> */}
-        {/* <Modal isOpen={modal} onRequestClose={() => modalClose()} ariaHideApp={false} style={customStyles} current={current}> */}
         <Modal isOpen={modal} onRequestClose={() => modalClose()} ariaHideApp={false} 
-        
         style={{
           content: {
             top: '50%',
@@ -200,7 +161,6 @@ const handleKeyPress = (e : any) => {
             width: '400px',
             height: '530px',
             color: 'black',
-            //align: 'center',
           },
           overlay: {
             position: 'fixed',
@@ -223,18 +183,18 @@ const handleKeyPress = (e : any) => {
               </div>
               <div> {current['description']}</div>
               <div className="item">
-                <input type="text" value={current.shortUrl} placeholder="shortUrl" className="border w-2/3 h-8 mt-4 text-center text-black "/>
+                <input type="text" defaultValue={current.shortUrl} placeholder="shortUrl" className="border w-2/3 h-8 mt-4 text-center text-black "/>
               </div>
               <div className="mt-4 flex w-3/4 ml-10 ">
                 <div className="flex-1">
-                  <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" onClick={()=> shareKakao(current.name, current.imagePath, current.shortUrl) }/>
+                  <img alt="test" src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" onClick={()=> shareKakao(current.name, current.imagePath, current.shortUrl) }/>
                  </div>
                  <div className="flex-1">
-                  <img src="/twitter.png" className="twit ml-4 rounded-2xl" onClick={()=> shareTwitter(current.name, current.imagePath, current.shortUrl) }/>
+                  <img  alt="test" src="/twitter.png" className="twit ml-4 rounded-2xl" onClick={()=> shareTwitter(current.name, current.imagePath, current.shortUrl) }/>
                  </div>
                  <div className="flex-1">
-                  <CopyToClipboard onCopy={shortUrl } text={current.shortUrl}>
-                    <img src="/copy.png" className="copy ml-4 "/>
+                  <CopyToClipboard onCopy={shortUrl} text={current.shortUrl}>
+                    <img alt="test" src="/copy.png" className="copy ml-4 "/>
                   </CopyToClipboard>
                  </div>                 
               </div>
@@ -263,16 +223,11 @@ const handleKeyPress = (e : any) => {
     </div>
   )
 }
-//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png
-//Modal.setAppElement('#root')
-
 
 export async function getServerSideProps(context:any) {
    
   let detail = await ssApi.GetList();
-
-  //console.log(detail)
-
+    
   return {
     props: {
       detail: detail,
@@ -281,10 +236,3 @@ export async function getServerSideProps(context:any) {
 }
 
 export default Homema
-function componentWillMount() {
-  throw new Error('Function not implemented.');
-}
-
-function Search(): void {
-  throw new Error('Function not implemented.');
-}

@@ -1,9 +1,10 @@
 import excuteQuery from '../../../libs/db';
 
-export default async (req, res) => {
+const list =  async (req, res) => {
     
     const keyword = req.body.keyword;
-    
+
+
     try {
         var query = "";
         if(keyword == undefined){
@@ -15,8 +16,6 @@ export default async (req, res) => {
             query: query,
             //values: 1,
         });
-        //return result[0];
-        
 
         for (let index = 0; index < result.length; index++) {
             var item = result[index];
@@ -53,8 +52,7 @@ export default async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
-    
-
-    
 }
+
+
+export default list;    
