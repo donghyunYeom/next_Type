@@ -1,6 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import excuteQuery from '../../../libs/db';
 
-const list =  async (req, res) => {
+const list =  async (req : NextApiRequest,  res : NextApiResponse) => {
     
     const keyword = req.body.keyword;
 
@@ -12,11 +13,7 @@ const list =  async (req, res) => {
         }else{
             query = `SELECT * FROM homema where name like('%${keyword}%') || nameKo like('%${keyword}%')`;
         }
-        let result = await excuteQuery({
-            query: query,
-            //values: 1,
-        });
-
+        let result = await excuteQuery({ query, values : [] });
         for (let index = 0; index < result.length; index++) {
             var item = result[index];
             let short='';
@@ -39,9 +36,7 @@ const list =  async (req, res) => {
                 var response = await axios(config);
                 result[index]['shortUrl'] = response.data.result.url 
                     //강제로 넘김
-                
-
-            }catch(error){
+            }catch(error : any){
                 console.error(error.response.data);  
             }
             

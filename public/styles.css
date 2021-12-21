@@ -1,0 +1,13 @@
+.img_tag {
+  text-align: -webkit-center;
+}
+.border {
+  border: 1px solid black;
+}
+.twit{
+  width: 4.3rem;
+}
+.copy{
+  width: 5rem;
+  margin-top: -5px;
+}
