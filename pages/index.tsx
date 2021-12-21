@@ -23,6 +23,7 @@ const Homema = (props : any) => {
 
     /* csr 영역에서 주로 많이 사용함. 1page render 는 사용성을 위해서 ssr를 사용하는게 사용성이 좋을것으로 판단.  */
     // const { data : homema, error } = useSWR('/api/homema/list', fetcher)
+    
     const [homema, setHomema] = useState(props.detail)
     const [modal, setModal] = useState(false)
     const [current, setCurrent] = useState(props.detail)
