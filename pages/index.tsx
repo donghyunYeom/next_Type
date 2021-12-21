@@ -88,9 +88,7 @@ const handleKeyPress = (e : any) => {
   return (
     
     <div className="hover:text-white ">
-        {/* <div className="inline-block m-5">GUIDE</div>
-        <div className="inline-block">|</div>
-        <div className="inline-block m-5">EVENT</div> */}
+
         <header className="flex-1 flex-col sm:flex-row m-5 justify-between items-center mt-20 mb-15 text-center">
             <div className="flex-1 cursor-pointer transform hover:scale-105">
                 {/* <LinkIcon className="flex-1 h-16 inline-block" /> */}
@@ -214,6 +212,7 @@ const handleKeyPress = (e : any) => {
         </Modal>
 
     </div>
+    
   )
 }
 
