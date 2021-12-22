@@ -248,7 +248,7 @@ const Homema = (props : any) => {
 }
 
 export async function getServerSideProps(context:any) {
-    let detail = await axios.get(process.env.NEXTAUTH_URL+'/api/homema/list')
+    let detail = await axios.get(process.env.API_URL+'/api/homema/list')
     return {
       props: {
         detail: detail.data,
