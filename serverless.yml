@@ -1,0 +1,11 @@
+goodsProductTool:
+  component: "@sls-next/serverless-component@latest"
+  inputs:
+    roleArn: "arn:aws:iam::020329126309:role/serverlessRole"
+    bucketName: "duckzill-discord-s3"
+    cloudfront:
+      distributionId: E2WUZNKRRMWTN3
+    name:
+      defaultLambda: "duckzillDiscordLambda"
+      apiLambda: "duckzillDiscordApiLambda"
+      imageLambda: "duckzillDiscordImageLambda"
