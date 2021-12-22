@@ -2,11 +2,14 @@ import {useState, useEffect} from 'react';
 import Modal from '../components/modal';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import axios from "axios"
-
+import Script from "next/script"
 /* csr 영역에서 주로 많이 사용함. 1page render 는 사용성을 위해서 ssr를 사용하는게 사용성이 좋을것으로 판단.  */
 // import useSWR from 'swr';
-
-declare var Kakao: any;
+declare global {
+    interface Window {
+        Kakao : any
+    }
+}
 
 /* csr 영역에서 주로 많이 사용함. 1page render 는 사용성을 위해서 ssr를 사용하는게 사용성이 좋을것으로 판단.  */
 // const fetcher = async (
@@ -50,12 +53,12 @@ const Homema = (props : any) => {
     }
 
     useEffect(() => {
-        Kakao.init(process.env.KAKAO_API_KEY);
+        window.Kakao.init(process.env.KAKAO_API_KEY);
     }, []);
 
     const shareKakao = (name : any, image : any, url : any) => {
 
-        Kakao
+        window.Kakao
             .Link
             .sendDefault({
                 objectType: "feed",
@@ -102,7 +105,8 @@ const Homema = (props : any) => {
     };
 
     return (
-
+        <>
+        <Script src="https://developers.kakao.com/sdk/js/kakao.js"  strategy="beforeInteractive" ></Script>
         <div className="hover:text-white ">
 
             <header
@@ -243,7 +247,7 @@ const Homema = (props : any) => {
             </Modal>
 
         </div>
-
+        </>
     )
 }
 
